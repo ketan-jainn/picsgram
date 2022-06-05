@@ -13,7 +13,7 @@ class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.uid}) : super(key: key);
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
@@ -122,6 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             borderColor: Colors.grey,
                                             function: () async {
                                               await AuthMethods().signOut();
+                                                if (!mounted) return;
                                               Navigator.of(context)
                                                   .pushReplacement(
                                                 MaterialPageRoute(

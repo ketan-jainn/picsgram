@@ -36,45 +36,46 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
       body: isShowUsers
-          ? FutureBuilder(
+          ? FutureBuilder<QuerySnapshot>(
               future: FirebaseFirestore.instance
                   .collection('users')
                   .where(
-                    'username',
+                     'username',
                     isGreaterThanOrEqualTo: searchController.text,
                   )
                   .get(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProfileScreen(
+                              uid: snapshot.data!.docs[index]['uid'],
+                            ),
+                          ),
+                        ),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              snapshot.data!.docs[index]['photoUrl'],
+                            ),
+                            radius: 16,
+                          ),
+                          title: Text(
+                            snapshot.data!.docs[index]['username'],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                return ListView.builder(
-                  itemCount: (snapshot.data! as dynamic).docs.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ProfileScreen(
-                            uid: (snapshot.data! as dynamic).docs[index]['uid'],
-                          ),
-                        ),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            (snapshot.data! as dynamic).docs[index]['photoUrl'],
-                          ),
-                          radius: 16,
-                        ),
-                        title: Text(
-                          (snapshot.data! as dynamic).docs[index]['username'],
-                        ),
-                      ),
-                    );
-                  },
-                );
               },
             )
           : FutureBuilder(
@@ -83,30 +84,30 @@ class _SearchScreenState extends State<SearchScreen> {
                   .orderBy('datePublished')
                   .get(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.hasData) {
+                  return StaggeredGridView.countBuilder(
+                    crossAxisCount: 3,
+                    itemCount: (snapshot.data! as dynamic).docs.length,
+                    itemBuilder: (context, index) => Image.network(
+                      (snapshot.data! as dynamic).docs[index]['postUrl'],
+                      fit: BoxFit.cover,
+                    ),
+                    staggeredTileBuilder: (index) => MediaQuery.of(context)
+                                .size
+                                .width >
+                            webScreenSize
+                        ? StaggeredTile.count(
+                            (index % 7 == 0) ? 1 : 1, (index % 7 == 0) ? 1 : 1)
+                        : StaggeredTile.count(
+                            (index % 7 == 0) ? 2 : 1, (index % 7 == 0) ? 2 : 1),
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
+                  );
+                } else {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-
-                return StaggeredGridView.countBuilder(
-                  crossAxisCount: 3,
-                  itemCount: (snapshot.data! as dynamic).docs.length,
-                  itemBuilder: (context, index) => Image.network(
-                    (snapshot.data! as dynamic).docs[index]['postUrl'],
-                    fit: BoxFit.cover,
-                  ),
-                  staggeredTileBuilder: (index) => MediaQuery.of(context)
-                              .size
-                              .width >
-                          webScreenSize
-                      ? StaggeredTile.count(
-                          (index % 7 == 0) ? 1 : 1, (index % 7 == 0) ? 1 : 1)
-                      : StaggeredTile.count(
-                          (index % 7 == 0) ? 2 : 1, (index % 7 == 0) ? 2 : 1),
-                  mainAxisSpacing: 8.0,
-                  crossAxisSpacing: 8.0,
-                );
               },
             ),
     );

@@ -9,11 +9,11 @@ import 'package:instagram_clone_flutter/widgets/comment_card.dart';
 import 'package:provider/provider.dart';
 
 class CommentsScreen extends StatefulWidget {
-  final postId;
+  final String postId;
   const CommentsScreen({Key? key, required this.postId}) : super(key: key);
 
   @override
-  _CommentsScreenState createState() => _CommentsScreenState();
+  State<CommentsScreen> createState() => _CommentsScreenState();
 }
 
 class _CommentsScreenState extends State<CommentsScreen> {
@@ -31,6 +31,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
       );
 
       if (res != 'success') {
+        if (!mounted) return;
         showSnackBar(context, res);
       }
       setState(() {
@@ -73,7 +74,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (ctx, index) => CommentCard(
-              snap: snapshot.data!.docs[index],
+              comment: snapshot.data!.docs[index],
             ),
           );
         },

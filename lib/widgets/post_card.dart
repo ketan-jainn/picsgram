@@ -12,10 +12,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class PostCard extends StatefulWidget {
-  final snap;
+  final Map<String, dynamic> snap;
+  final String uid;
   const PostCard({
     Key? key,
     required this.snap,
+    required this.uid,
   }) : super(key: key);
 
   @override
@@ -62,7 +64,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final model.AppUser? user = Provider.of<UserProvider>(context).getUser;
+    final model.AppUser? user = context.watch<UserProvider>().getUser;
     final width = MediaQuery.of(context).size.width;
 
     return Container(
@@ -111,7 +113,7 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                 ),
-                widget.snap['uid'].toString() == user!.uid
+                widget.snap['uid'] == user?.uid
                     ? IconButton(
                         onPressed: () {
                           showDialog(
@@ -160,7 +162,7 @@ class _PostCardState extends State<PostCard> {
             onDoubleTap: () {
               FireStoreMethods().likePost(
                 widget.snap['postId'].toString(),
-                user.uid,
+                user!.uid,
                 widget.snap['likes'],
               );
               setState(() {
@@ -183,11 +185,6 @@ class _PostCardState extends State<PostCard> {
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
                     isAnimating: isLikeAnimating,
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                      size: 100,
-                    ),
                     duration: const Duration(
                       milliseconds: 400,
                     ),
@@ -196,6 +193,11 @@ class _PostCardState extends State<PostCard> {
                         isLikeAnimating = false;
                       });
                     },
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                      size: 100,
+                    ),
                   ),
                 ),
               ],
@@ -205,10 +207,10 @@ class _PostCardState extends State<PostCard> {
           Row(
             children: <Widget>[
               LikeAnimation(
-                isAnimating: widget.snap['likes'].contains(user.uid),
+                isAnimating: widget.snap['likes'].contains(widget.uid),
                 smallLike: true,
                 child: IconButton(
-                  icon: widget.snap['likes'].contains(user.uid)
+                  icon: widget.snap['likes'].contains(user!.uid)
                       ? const Icon(
                           Icons.favorite,
                           color: Colors.red,
@@ -235,17 +237,6 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
               ),
-              IconButton(
-                  icon: const Icon(
-                    Icons.send,
-                  ),
-                  onPressed: () {}),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomRight,
-                child: IconButton(
-                    icon: const Icon(Icons.bookmark_border), onPressed: () {}),
-              ))
             ],
           ),
           //DESCRIPTION AND NUMBER OF COMMENTS
@@ -288,6 +279,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 InkWell(
                   child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
                       'View all $commentLen comments',
                       style: const TextStyle(
@@ -295,7 +287,6 @@ class _PostCardState extends State<PostCard> {
                         color: secondaryColor,
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 4),
                   ),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
@@ -306,6 +297,7 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
                     DateFormat.yMMMd()
                         .format(widget.snap['datePublished'].toDate()),
@@ -313,7 +305,6 @@ class _PostCardState extends State<PostCard> {
                       color: secondaryColor,
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 4),
                 ),
               ],
             ),

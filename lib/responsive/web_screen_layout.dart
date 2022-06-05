@@ -75,25 +75,18 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
           ),
           IconButton(
             icon: Icon(
-              Icons.favorite,
+              Icons.person,
               color: _page == 3 ? primaryColor : secondaryColor,
             ),
             onPressed: () => navigationTapped(3),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              color: _page == 4 ? primaryColor : secondaryColor,
-            ),
-            onPressed: () => navigationTapped(4),
           ),
         ],
       ),
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
-        children: homeScreenItems,
         controller: pageController,
         onPageChanged: onPageChanged,
+        children: homeScreenItems,
       ),
     );
   }

@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
         title: 'Picsgram',
         theme: ThemeData.dark().copyWith(
+          useMaterial3: true,
           scaffoldBackgroundColor: mobileBackgroundColor,
         ),
         home: StreamBuilder(

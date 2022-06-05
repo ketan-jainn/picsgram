@@ -41,9 +41,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        children: homeScreenItems,
         controller: pageController,
         onPageChanged: onPageChanged,
+        children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,
@@ -72,16 +72,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
               backgroundColor: primaryColor),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.favorite,
-              color: (_page == 3) ? primaryColor : secondaryColor,
-            ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
               Icons.person,
-              color: (_page == 4) ? primaryColor : secondaryColor,
+              color: (_page == 3) ? primaryColor : secondaryColor,
             ),
             label: '',
             backgroundColor: primaryColor,
