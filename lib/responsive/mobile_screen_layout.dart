@@ -45,43 +45,88 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         onPageChanged: onPageChanged,
         children: homeScreenItems,
       ),
-      bottomNavigationBar: CupertinoTabBar(
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: mobileBackgroundColor,
-        items: <BottomNavigationBarItem>[
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        elevation: 0,
+        selectedItemColor: blueColor,
+        onTap: navigationTapped,
+        currentIndex: _page,
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: (_page == 0) ? primaryColor : secondaryColor,
+              // color: (_page == 0) ? primaryColor : secondaryColor,
             ),
             label: '',
-            backgroundColor: primaryColor,
+            backgroundColor: mobileBackgroundColor,
           ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-                color: (_page == 1) ? primaryColor : secondaryColor,
-              ),
-              label: '',
-              backgroundColor: primaryColor),
+            icon: Icon(
+              Icons.search,
+              // color: (_page == 1) ? primaryColor : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: mobileBackgroundColor,
+          ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.add_circle,
-                color: (_page == 2) ? primaryColor : secondaryColor,
-              ),
-              label: '',
-              backgroundColor: primaryColor),
+            icon: Icon(
+              Icons.add_circle,
+              // color: (_page == 2) ? primaryColor : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: mobileBackgroundColor,
+          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person,
-              color: (_page == 3) ? primaryColor : secondaryColor,
+              // color: (_page == 3) ? primaryColor : secondaryColor,
             ),
             label: '',
-            backgroundColor: primaryColor,
+            backgroundColor: mobileBackgroundColor,
           ),
         ],
-        onTap: navigationTapped,
-        currentIndex: _page,
       ),
     );
   }
 }
+
+// CupertinoTabBar(
+//         backgroundColor: mobileBackgroundColor,
+        // items: <BottomNavigationBarItem>[
+        //   BottomNavigationBarItem(
+        //     icon: Icon(
+        //       Icons.home,
+        //       color: (_page == 0) ? primaryColor : secondaryColor,
+        //     ),
+        //     label: '',
+        //     backgroundColor: primaryColor,
+        //   ),
+        //   BottomNavigationBarItem(
+        //       icon: Icon(
+        //         Icons.search,
+        //         color: (_page == 1) ? primaryColor : secondaryColor,
+        //       ),
+        //       label: '',
+        //       backgroundColor: primaryColor),
+        //   BottomNavigationBarItem(
+        //       icon: Icon(
+        //         Icons.add_circle,
+        //         color: (_page == 2) ? primaryColor : secondaryColor,
+        //       ),
+        //       label: '',
+        //       backgroundColor: primaryColor),
+        //   BottomNavigationBarItem(
+        //     icon: Icon(
+        //       Icons.person,
+        //       color: (_page == 3) ? primaryColor : secondaryColor,
+        //     ),
+        //     label: '',
+        //     backgroundColor: primaryColor,
+        //   ),
+        // ],
+//         onTap: navigationTapped,
+//         currentIndex: _page,
+//       ),

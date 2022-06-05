@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int following = 0;
   bool isFollowing = false;
   bool isLoading = false;
-
+  late String ownerUID;
   @override
   void initState() {
     super.initState();
@@ -41,13 +41,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .get();
 
       // get post lENGTH
+
+      userData = userSnap.data()!;
+      ownerUID = userSnap.data()!['uid'];
       var postSnap = await FirebaseFirestore.instance
           .collection('posts')
-          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('uid', isEqualTo: ownerUID)
           .get();
 
       postLen = postSnap.docs.length;
-      userData = userSnap.data()!;
+
       followers = userSnap.data()!['followers'].length;
       following = userSnap.data()!['following'].length;
       isFollowing = userSnap
@@ -122,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             borderColor: Colors.grey,
                                             function: () async {
                                               await AuthMethods().signOut();
-                                                if (!mounted) return;
+                                              if (!mounted) return;
                                               Navigator.of(context)
                                                   .pushReplacement(
                                                 MaterialPageRoute(
@@ -181,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Container(
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(
-                          top: 15,
+                          top: 10,
                         ),
                         child: Text(
                           userData['username'],
@@ -193,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Container(
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(
-                          top: 1,
+                          top: 5,
                         ),
                         child: Text(
                           userData['bio'],
@@ -215,23 +218,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     }
 
-                    return GridView.builder(
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: (snapshot.data! as dynamic).docs.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 1.5,
-                        childAspectRatio: 1,
-                      ),
                       itemBuilder: (context, index) {
                         DocumentSnapshot snap =
                             (snapshot.data! as dynamic).docs[index];
 
-                        return Image(
-                          image: NetworkImage(snap['postUrl']),
-                          fit: BoxFit.cover,
+                        return Container(
+                          height: MediaQuery.of(context).size.height * 0.35,
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: AspectRatio(
+                            aspectRatio: 4 / 3,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image(
+                                image: NetworkImage(snap['postUrl'], scale: 25),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         );
                       },
                     );

@@ -30,9 +30,17 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Picsgram',
         theme: ThemeData.dark().copyWith(
-          useMaterial3: true,
-          scaffoldBackgroundColor: mobileBackgroundColor,
-        ),
+            useMaterial3: true,
+            scaffoldBackgroundColor: mobileBackgroundColor,
+            appBarTheme: const AppBarTheme(
+              color: mobileBackgroundColor,
+              surfaceTintColor: mobileBackgroundColor,
+            ),
+            textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                    textStyle: const TextStyle(
+              color: blueColor,
+            )))),
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

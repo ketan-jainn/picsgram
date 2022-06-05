@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone_flutter/resources/auth_methods.dart';
@@ -204,27 +203,22 @@ class _SignupScreenState extends State<SignupScreen> {
                       const SizedBox(
                         height: 24,
                       ),
-                      InkWell(
-                        onTap: signUpUser,
-                        child: Container(
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          decoration: const ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                            ),
-                            color: blueColor,
-                          ),
-                          child: !_isLoading
-                              ? const Text(
-                                  'Sign up',
-                                )
-                              : const CircularProgressIndicator(
-                                  color: primaryColor,
-                                ),
+                      ElevatedButton(
+                        onPressed: signUpUser,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
+                          primary: blueColor,
                         ),
+                        child: !_isLoading
+                            ? const Text(
+                                'Sign up',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const CircularProgressIndicator(
+                                color: primaryColor,
+                              ),
                       ),
                       const SizedBox(
                         height: 10,
@@ -238,19 +232,13 @@ class _SignupScreenState extends State<SignupScreen> {
                               'Already have an account?',
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: const Text(
-                                ' Login.',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          TextButton(
+                            
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),

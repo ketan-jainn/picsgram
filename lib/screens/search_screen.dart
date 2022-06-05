@@ -24,8 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Form(
           child: TextFormField(
             controller: searchController,
-            decoration:
-                const InputDecoration(labelText: 'Search for a user...'),
+            decoration: const InputDecoration(labelText: 'Search User'),
             onFieldSubmitted: (String _) {
               setState(() {
                 isShowUsers = true;
@@ -40,8 +39,9 @@ class _SearchScreenState extends State<SearchScreen> {
               future: FirebaseFirestore.instance
                   .collection('users')
                   .where(
-                     'username',
-                    isGreaterThanOrEqualTo: searchController.text,
+                    'username',
+                    // arrayContains: searchController.text,
+                    isEqualTo: searchController.text,
                   )
                   .get(),
               builder: (context, snapshot) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:instagram_clone_flutter/resources/auth_methods.dart';
 import 'package:instagram_clone_flutter/responsive/mobile_screen_layout.dart';
@@ -93,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 64,
                     ),
                     TextFieldInput(
-                      hintText: 'Enter your email',
+                      hintText: 'Email Address',
                       textInputType: TextInputType.emailAddress,
                       textEditingController: _emailController,
                     ),
@@ -101,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 24,
                     ),
                     TextFieldInput(
-                      hintText: 'Enter your password',
+                      hintText: 'Password',
                       textInputType: TextInputType.text,
                       textEditingController: _passwordController,
                       isPass: true,
@@ -109,26 +108,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 24,
                     ),
-                    InkWell(
-                      onTap: loginUser,
-                      child: Container(
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: const ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                          ),
-                          color: blueColor,
-                        ),
-                        child: !_isLoading
-                            ? const Text(
-                                'Log in',
-                              )
-                            : const CircularProgressIndicator(
-                                color: primaryColor,
-                              ),
+                    ElevatedButton(
+                      onPressed: loginUser,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        primary: blueColor,
                       ),
+                      child: !_isLoading
+                          ? const Text(
+                              'Log in',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )
+                          : const CircularProgressIndicator(
+                              color: primaryColor,
+                            ),
                     ),
                     const SizedBox(
                       height: 12,
@@ -146,19 +141,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Dont have an account?',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () => Navigator.of(context).push(
+                        TextButton(
+                          onPressed: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const SignupScreen(),
                             ),
                           ),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: const Text(
-                              ' Signup.',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                          child: const Text(
+                            'Signup',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: blueColor,
                             ),
                           ),
                         ),

@@ -104,19 +104,15 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () => postComment(
+              TextButton(
+                onPressed: () => postComment(
                   user.uid,
                   user.username,
                   user.photoUrl,
                 ),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  child: const Text(
-                    'Post',
-                    style: TextStyle(color: Colors.blue),
-                  ),
+                child: const Text(
+                  'Post',
+                  // style: TextStyle(color: Colors.blue),
                 ),
               )
             ],
