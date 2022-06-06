@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_flutter/providers/user_provider.dart';
 import 'package:instagram_clone_flutter/responsive/mobile_screen_layout.dart';
@@ -11,7 +12,23 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyBAKTBcW12w0Izj29lDmlrEqjtM7Z3fMHk",
+        authDomain: "picsgram-2a08c.firebaseapp.com",
+        databaseURL:
+            "https://picsgram-2a08c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "picsgram-2a08c",
+        storageBucket: "picsgram-2a08c.appspot.com",
+        messagingSenderId: "410390726149",
+        appId: "1:410390726149:web:1df8f80f7cf39d2115be6c",
+        measurementId: "G-32X614JB1E",
+      ),
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
 
   runApp(const MyApp());
 }

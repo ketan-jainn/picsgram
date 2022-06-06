@@ -31,10 +31,12 @@ class CommentCard extends StatelessWidget {
                         TextSpan(
                             text: comment['name'],
                             style: const TextStyle(
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             )),
                         TextSpan(
                           text: ' ${comment['text']}',
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ],
                     ),
