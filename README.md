@@ -6,7 +6,7 @@ Welcome to Picsgram, a Flutter app for sharing and exploring photos.
 ## Installation
 To install the Picsgram app on your device, follow these steps:
 
-1. **Clone the Repository**: Clone the Picsgram repository from the following GitHub link: [Picsgram Repository](https://github.com/yourusername/picsgram)
+1. **Clone the Repository**: Clone the Picsgram repository from the following GitHub link: [Picsgram Repository](https://github.com/ketan-jainn/picsgram)
 
 2. **Navigate to the Project Directory**: Open a terminal or command prompt and navigate to the directory where you cloned the repository.
 
