@@ -1,7 +1,7 @@
 # Picsgram Flutter App
 
 ## Introduction
-Welcome to Picsgram, a Flutter app for sharing and exploring photos. This README provides instructions on how to install the Picsgram app on your device. Additionally, it includes information about the project's hosting and its inclusion on the author's resume.
+Welcome to Picsgram, a Flutter app for sharing and exploring photos.
 
 ## Installation
 To install the Picsgram app on your device, follow these steps:
